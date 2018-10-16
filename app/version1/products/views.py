@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 from models import Products
 
 ProductsObject = Products()
+
 version1_blueprints = Blueprint('version1', __name__, url_prefix='/api/v1/products')
 
 @version1_blueprints.route('/', methods=['GET', 'POST'])
