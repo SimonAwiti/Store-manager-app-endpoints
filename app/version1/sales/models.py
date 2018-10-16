@@ -22,7 +22,7 @@ class salesrec(object):
             "message": "Successful.",
             "sale record": self.salesrec_list}), 201
 
-    def get_salesrec(self):
+    def get_salesrecs(self):
         """ get all sales records """
         return jsonify({
             "message": "Successful.",
@@ -42,7 +42,7 @@ class salesrec(object):
                 "message": "No sale record with that id.",
                 "Product": self.salesrec_list}), 404
 
-    def update_salesrec(self, product_id, description, date_sold, buyer_contact, saler):
+    def update_salesrec(self, salesrec_id, description, date_sold, buyer_contact, saler):
         """ update sale record """
         for salesrec in self.salesrec_list:
             if salesrec['salesrec_id'] == salesrec_id:
