@@ -1,13 +1,13 @@
 """creating bp routes for sales records"""
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from models import salesrec
 
 salesrecObject = salesrec()
 
 
-version1_blueprints = Blueprint('version1', __name__, url_prefix='/api/v1/sales')
+version1sales_blueprints = Blueprint('version1sale', __name__, url_prefix='/api/v1/sales')
 
-@version1_blueprints.route('/', methods=['GET', 'POST'])
+@version1sales_blueprints.route('/', methods=['GET', 'POST'])
 def salesrec():
     """ Method to create and retrieve sale record."""
     if request.method == "POST":
