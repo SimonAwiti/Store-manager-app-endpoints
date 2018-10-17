@@ -2,6 +2,7 @@
 from flask import jsonify
 
 class salesrec(object):
+    """sales record test class"""
     def __init__(self):
         """ Initialize empty sales record list"""
         self.salesrec_list = []

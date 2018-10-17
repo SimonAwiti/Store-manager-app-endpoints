@@ -1,5 +1,5 @@
 """creating bp routes for sales records"""
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request
 from models import salesrec
 
 salesrecObject = salesrec()
@@ -25,12 +25,10 @@ def salesrec():
 def salesrec_manipulation(salesrec_id, **kwargs):
     """ GET/PUT/DEL product """
     if request.method == 'DELETE':
-        '''DELETE'''
         response = salesrecObject.delete_salesrec(salesrec_id)
         return response
 
     elif request.method == 'PUT':
-        '''PUT'''
         data = request.get_json()
         description = data['description']
         date_sold = data['date_sold']
@@ -45,6 +43,5 @@ def salesrec_manipulation(salesrec_id, **kwargs):
         return response
 
     else:
-        '''GET'''
         response = salesrecObject.get_salesrec(salesrec_id)
         return response

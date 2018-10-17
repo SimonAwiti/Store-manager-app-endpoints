@@ -15,7 +15,6 @@ class TestProducts(TestBase):
     def setUp(self):
         '''instanciate'''
         app = create_app()
-        
         self.create_products = json.dumps(dict(
             description="wall pass",
             quantity="10 rolls",
@@ -23,11 +22,11 @@ class TestProducts(TestBase):
             price_per_roll="Ksh 400"))
 
         self.create_Product2 = json.dumps(dict(
-                product_id=2,
-                description='ironsheet',
-                quantity='30 pieces',
-                min_quantity_in_store='5 pieces',
-                price_per_roll='ksh 400'))
+            product_id=2,
+            description='ironsheet',
+            quantity='30 pieces',
+            min_quantity_in_store='5 pieces',
+            price_per_roll='ksh 400'))
 
         self.client = app.test_client()
         self.client.post(

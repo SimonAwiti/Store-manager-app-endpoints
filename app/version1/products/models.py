@@ -2,6 +2,7 @@
 from flask import jsonify
 
 class Products(object):
+    """products clas"""
     def __init__(self):
         """ Initialize empty Product list"""
         self.Products_list = []
@@ -42,7 +43,8 @@ class Products(object):
                 "message": "No product with that id.",
                 "Product": self.Products_list}), 404
 
-    def update_product(self, product_id, description, quantity, min_quantity_in_store, price_per_roll):
+    def update_product(
+            self, product_id, description, quantity, min_quantity_in_store, price_per_roll):
         """ update product """
         for product in self.Products_list:
             if product['product_id'] == product_id:
