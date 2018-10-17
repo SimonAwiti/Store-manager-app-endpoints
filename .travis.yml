@@ -12,7 +12,7 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - python --cov=app/tests
+  - pytes --cov=app/tests
 
 after_script:
   - coverage xml
