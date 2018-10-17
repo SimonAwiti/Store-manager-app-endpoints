@@ -9,15 +9,13 @@ class TestBase(unittest.TestCase):
 
     def create_app():
         """ Instantiate tests"""
-        app = create_app()
-        self.client = app.test_client()
-        return app
 
 class TestProducts(TestBase):
     """ Tests for the products creation"""
     def setUp(self):
         '''instanciate'''
         app = create_app()
+        
         self.create_products = json.dumps(dict(
             description="wall pass",
             quantity="10 rolls",
