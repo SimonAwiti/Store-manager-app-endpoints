@@ -1,6 +1,7 @@
 """creating bp routes for products"""
 from flask import Blueprint, request
 from models import Products
+from validateproducts import validate_data
 
 ProductsObject = Products()
 
@@ -12,11 +13,13 @@ def product():
     """ Method to create and retrieve product."""
     if request.method == "POST":
         data = request.get_json()
-        description = data['description']
-        quantity = data['quantity']
-        min_quantity_in_store = data['min_quantity_in_store']
-        price_per_roll = data['price_per_roll']
-        response = ProductsObject.create_Product(
+        response = validate_data(data)
+        if response == "valid":
+            description = data['description']
+            quantity = data['quantity']
+            min_quantity_in_store = data['min_quantity_in_store']
+            price_per_roll = data['price_per_roll']
+            response = ProductsObject.create_Product(
             description, quantity, min_quantity_in_store, price_per_roll)
         return response
     data = ProductsObject.get_products()
