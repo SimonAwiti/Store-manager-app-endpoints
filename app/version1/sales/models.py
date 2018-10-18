@@ -1,7 +1,7 @@
-"""/app/version1/sales/models.py"""
+"""sales records data structures"""
 from flask import jsonify
 
-class salesrec(object):
+class SalesRec(object):
     """sales record test class"""
     def __init__(self):
         """ Initialize empty sales record list"""
@@ -12,12 +12,12 @@ class salesrec(object):
         """Create sales records"""
         self.salesrec = {}
 
-        self.salesrecId = len(self.salesrec_list)
+        self.salesrec_id = len(self.salesrec_list)
         self.salesrec['description'] = description
         self.salesrec['date_sold'] = date_sold
         self.salesrec['buyer_contact'] = buyer_contact
         self.salesrec['saler'] = saler
-        self.salesrec['salesrec_id'] = self.salesrecId + 1
+        self.salesrec['salesrec_id'] = self.salesrec_id + 1
         self.salesrec_list.append(self.salesrec)
         return jsonify({
             "message": "Successful.",
@@ -40,8 +40,7 @@ class salesrec(object):
             self.notfound = True
         if self.notfound is True:
             return jsonify({
-                "message": "No sale record with that id.",
-                "Product": self.salesrec_list}), 404
+                "message": "No sale record with that id."}), 404
 
     def update_salesrec(self, salesrec_id, description, date_sold, buyer_contact, saler):
         """ update sale record """
@@ -57,8 +56,7 @@ class salesrec(object):
             self.notfound = True
         if self.notfound is True:
             return jsonify({
-                "message": "No sale record with that id.",
-                "Product": self.salesrec_list}), 404
+                "message": "No sale record with that id."}), 404
 
     def get_salesrec(self, salesrec_id):
         """ get single sales record """
@@ -70,5 +68,4 @@ class salesrec(object):
             self.notfound = True
         if self.notfound is True:
             return jsonify({
-                "message": "No sale record with that id.",
-                "Product": self.salesrec_list}), 404
+                "message": "No sale record with that id."}), 404

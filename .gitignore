@@ -10,6 +10,7 @@ bin-release/
 venv/
 __pycache__/
 .env
+*.pyc
 # Executables
 *.swf
 *.air

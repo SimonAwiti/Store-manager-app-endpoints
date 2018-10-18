@@ -1,9 +1,9 @@
 """creating bp routes for sales records"""
 from flask import Blueprint, request
-from models import salesrec
-from validatesalesrec import validate_data
+from app.version1.sales.models import SalesRec
+from app.version1.sales.validatesalesrec import validate_data
 
-salesrecObject = salesrec()
+salesrecObject = SalesRec()
 
 
 version1sales_blueprints = Blueprint('version1sale', __name__, url_prefix='/api/v1/sales')
