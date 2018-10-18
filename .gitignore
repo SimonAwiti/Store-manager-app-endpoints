@@ -9,7 +9,7 @@ bin-release/
 .vscode/
 venv/
 __pycache__/
-
+.env
 # Executables
 *.swf
 *.air
