@@ -27,7 +27,7 @@ def salesrec():
 
 @version1sales_blueprints.route('/<int:salesrec_id>', methods=['GET', 'PUT', 'DELETE'])
 def salesrec_manipulation(salesrec_id, **kwargs):
-    """ GET/PUT/DEL product """
+    """ GET/PUT/DEL sale records """
     if request.method == 'DELETE':
         response = salesrecObject.delete_salesrec(salesrec_id)
         return response
