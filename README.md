@@ -21,6 +21,10 @@
 | POST /products            | Create a product                 |  /api/v1/products/            |
 | POST /sales               | Create a sale order              |  /api/v1/sales/               |
   
+## Extra endpoints include 
+* Deleting both the sales records and products
+* Editing (PUT) both sales records and products
+
 ## Testing the endpoints
 
 * Install python then using pip instal .. install flask
