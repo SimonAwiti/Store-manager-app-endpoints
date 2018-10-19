@@ -14,3 +14,4 @@ def create_app():
     app.register_blueprint(version1sales_blueprints)
 
     return app
+    
