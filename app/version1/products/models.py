@@ -1,22 +1,37 @@
 """products data structures"""
 from flask import jsonify
+#from flask_jwt_extended import create_access_token
 
 class Products(object):
-    """products clas"""
+    """products class"""
     def __init__(self):
         """ Initialize empty Product list"""
         self.products_list = []
         self.notfound = None
 
-    def create_product(self, description, quantity, min_quantity_in_store, price_per_roll):
+    def get_product_by_description(self, description):
+        """ Fetch product by description """
+        product = [product for product in self.products_list if product['description'] == description]
+        return product   
+
+    def minimum_quantity(self, min_quantity_in_store):
+        min_quantity = self.products['min_quantity_in_store']
+        return min_quantity
+
+
+    def create_product(self, description, quantity, price_per_unit, total_cost):
         """Create products"""
+        present_product = self.get_product_by_description(description)
+        if present_product:
+            return jsonify({
+                "message": "Product already exists."}), 404
         self.products = {}
 
         self.product_id = len(self.products_list)
         self.products['description'] = description
         self.products['quantity'] = quantity
-        self.products['min_quantity_in_store'] = min_quantity_in_store
-        self.products['price_per_roll'] = price_per_roll
+        self.products['price_per_unit'] = price_per_unit
+        self.products['total_cost'] = quantity * price_per_unit
         self.products['product_id'] = self.product_id + 1
         self.products_list.append(self.products)
         return jsonify({
@@ -43,14 +58,14 @@ class Products(object):
                 "message": "No product with that id."}), 404
 
     def update_product(
-            self, product_id, description, quantity, min_quantity_in_store, price_per_roll):
+            self, product_id, description, quantity, price_per_unit, total_cost):
         """ update product """
         for product in self.products_list:
             if product['product_id'] == product_id:
                 product['description'] = description
                 product['quantity'] = quantity
-                product['min_quantity_in_store'] = min_quantity_in_store
-                product['price_per_roll'] = price_per_roll
+                product['price_per_unit'] = price_per_unit
+                product['total_cost'] = quantity * price_per_unit
                 return jsonify({
                     "message": "Update Successful.",
                     "Product": self.products_list}), 201

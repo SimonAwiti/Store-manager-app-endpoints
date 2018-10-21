@@ -2,6 +2,7 @@
 from flask import Blueprint, request
 from app.version1.sales.models import SalesRec
 from app.version1.sales.validatesalesrec import validate_data
+import datetime
 
 salesrecObject = SalesRec()
 
@@ -16,11 +17,14 @@ def salesrec():
         response = validate_data(data)
         if response == "valid":
             description = data['description']
-            date_sold = data['date_sold']
-            buyer_contact = data['buyer_contact']
-            saler = data['saler']
+            date_sold = datetime.datetime.now()
+            quantity_sold = data['quantity_sold']
+            unit_price = data['unit_price']
+            bill = unit_price * quantity_sold
+            attendant = data['attendant']
+
             response = salesrecObject.create_salesrec(
-                description, date_sold, buyer_contact, saler)
+                description, date_sold, quantity_sold, unit_price, bill, attendant)
         return response
     data = salesrecObject.get_salesrecs()
     return data
@@ -34,16 +38,21 @@ def salesrec_manipulation(salesrec_id, **kwargs):
 
     elif request.method == 'PUT':
         data = request.get_json()
+        response = validate_data(data)
         description = data['description']
-        date_sold = data['date_sold']
-        buyer_contact = data['buyer_contact']
-        saler = data['saler']
+        date_sold = datetime.datetime.now()
+        quantity_sold = data['quantity_sold']
+        unit_price = data['unit_price']
+        bill = unit_price * quantity_sold
+        attendant = data['attendant']
         response = salesrecObject.update_salesrec(
             salesrec_id,
             description,
             date_sold,
-            buyer_contact,
-            saler)
+            quantity_sold,
+            unit_price,
+            bill,
+            attendant)
         return response
 
     else:

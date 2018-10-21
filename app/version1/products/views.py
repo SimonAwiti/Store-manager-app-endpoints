@@ -17,10 +17,10 @@ def product():
         if response == "valid":
             description = data['description']
             quantity = data['quantity']
-            min_quantity_in_store = data['min_quantity_in_store']
-            price_per_roll = data['price_per_roll']
+            price_per_unit = data['price_per_unit']
+            total_cost = quantity * price_per_unit
             response = ProductsObject.create_product(
-                description, quantity, min_quantity_in_store, price_per_roll)
+                description, quantity, price_per_unit, total_cost)
         return response
     data = ProductsObject.get_products()
     return data
@@ -36,14 +36,14 @@ def product_manipulation(product_id, **kwargs):
         data = request.get_json()
         description = data['description']
         quantity = data['quantity']
-        min_quantity_in_store = data['min_quantity_in_store']
-        price_per_roll = data['price_per_roll']
+        price_per_unit = data['price_per_unit']
+        total_cost = quantity * price_per_unit
         response = ProductsObject.update_product(
             product_id,
             description,
             quantity,
-            min_quantity_in_store,
-            price_per_roll)
+            price_per_unit,
+            total_cost)
         return response
 
     else:
