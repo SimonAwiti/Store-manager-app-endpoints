@@ -1,25 +1,22 @@
 import os
 from os import getenv
 
-
-class Config(object):
-    """Parent configuration class."""
-    DEBUG = False
+"""Application configuration"""
+# system import
+import os
+class Config:
+    """Base config class"""
+    DEBUG = True
     SECRET = os.getenv('SECRET')
-
-class DevelopmentConfig(Config):
-    """Configurations for Development."""
+class Development(Config):
+    """Development configurations"""
     DEBUG = True
-
-class TestingConfig(Config):
-    """Configurations for Testing, with a separate test database."""
+class Testing(Config):
+    """Testing configurations"""
+    DEBUG = True
     TESTING = True
-    DEBUG = True
     SECRET_KEY = "SECRET"
-    #DATABASE_URL=
-   
-
-app_config = {
-    'development': DevelopmentConfig,
-    'testing': TestingConfig,
+configuration = {
+    "development": Development,
+    "testing": Testing
 }

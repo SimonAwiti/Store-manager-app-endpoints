@@ -1,64 +1,93 @@
-"""
-models file for the app
-import re
+"""users data structures"""
+import re 
 import datetime
-from flask import jsonify, session
 
-class User(object):
-    User Class
+"""defining global variables"""
+users = [{
+            "user_id":0,
+            "email": "theadmin@gmail.com",
+            "username": "administrator",
+            "password": "simon12",
+            "role": "admin"
+            }]
+user_id = 1
 
-
+class User:
     def __init__(self):
-        Initialize empty Product list
-        self.products_list = []
-        self.notfound = None
+        """initializing user constructor"""
+        self.email = ""
+        self.username = ""
+        self.password = ""
+        self.role = ""
 
-    def create_user(self, username, email, password, userRole):
-        Create users
-        if not self.valid_username(username):
-            if not self.valid_email(email):
-                self.cur.execute(
-                        "INSERT INTO users(username, email, password, userRole) VALUES(%s, %s, %s,%s);", (
-                         username, email, password, userRole))
-                self.connect.commit()
-                return jsonify({"message": "Registration Successful"}), 201
-        else:
-            return jsonify({"message": "Username or Email already in use."}), 400
+    @staticmethod
+    def validate_details(details):
+        """checks if the user details are relevant before registering"""
+        if not details:
+            return "Please enter data for registration"
+        #if  bool(re.search(r'@', details["email"])) is False:
+            #return "Your email should have an @ in it"
+        for user in range(len(users)):
+            if users[user]["email"] == details["email"]:
+                return "Email already in use, register with another email"
+        if details["role"] != "admin" and details["role"] != "attendant":
+            return "You can only register as an admin or attendant"
+        return True
 
-    def login(self, username, password):
-        "login users
-        if not self.valid_username(username):
-            return jsonify({"message": "Please register first."}), 401
-        self.cur.execute("SELECT * FROM users WHERE username='%s'\
-        AND password='%s'"%username, password)
-        if self.cur.rowcount > 0:
-            rows = self.cur.fetchall()
-            for user in rows:
-                user_id = user[0]
-                username = user[1]
-                email = user[4]
-                userRole = user[5]
-                session['token'] = jwt.encode({'userid': user_id,
-                                               'username': username, 'userrole': userRole,
-                                               'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
-                                              'SECRET_KEY', algorithm='HS256')
-                return jsonify({
-                    "message": "You are successfully logged in"}), 200
-        return jsonify({
-            "message": "Wrong username or password"}), 403
-    def valid_username(self, username):
-        check if username exist"
-        self.cur.execute("SELECT * FROM users WHERE username='%s'"%username)
-        numrows = self.cur.rowcount
-        if numrows > 0:
-            return True
-        return False
+    def add_new_user(self, details):
+        """registering a new user"""
+        # global variable
+        global user_id
+        # check details for data
+        if not details:
+            return "Please enter information for registration"
+            # check validity of data
+        if self.validate_details(details) is True:
+            users.append({
+                    "user_id": user_id,
+                    "email": self.email,
+                    "username": self.username,
+                    "password": self.password,
+                    "role": self.role
+                })
+            user_id += 1
+            return "User added Successfully!"
+        return "Ensure that the details are relevant before adding a user!"
 
-    def valid_email(self, email):
-        check if email exist"
-        self.cur.execute("SELECT * FROM users WHERE email='%s'"%email)
-        numrows = self.cur.rowcount
-        if numrows > 0:
-            return True
-        return False
-        """
+    def get_users(self):
+        """get all users"""
+        if not users:
+            return "There are no users registered!"
+        return users
+
+    def get_one_user(self, user_id):
+        """fetch a specific user"""
+        if isinstance(user_id, int) is False:
+            return "User Id should be a number"
+        for user in range(len(users)):
+            if user_id != users[user]["user_id"]:
+                continue
+            return users[user]
+
+    def validate_user(self, details):
+        """validate user details while loging in"""
+        if not details:
+            return "Please enter data for registration"
+        if not users:
+            return "No registered users"
+        for user in range(len(users)):
+            if users[user]['username'] != details["username"] and users[user]['password'] != details["password"]:
+                continue
+            return "Login Successful!"
+
+    def edit_user_role(self, user_id):
+        """Admin changes attendant role to admin"""
+        if not users:
+            return "No registered users"
+        if isinstance(user_id, int) is False:
+            return "User Id should be a number"
+        for user in range(len(users)):
+            if user_id != users[user]["user_id"]:
+                continue
+            user["role"] = "administrator"
+            return "Attendant was promoted to admin"
