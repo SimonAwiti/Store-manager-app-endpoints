@@ -11,7 +11,7 @@ def create_app(config):
     app.secret_key = os.urandom(24)
 
     '''importing and registering the blueprints'''
-    from app.version1.products.views import version1_blueprints
+    from app.version1.users.views import version1_blueprints
     app.register_blueprint(version1_blueprints)
 
     from app.version1.sales.views import version1sales_blueprints

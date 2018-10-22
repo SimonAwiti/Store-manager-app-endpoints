@@ -8,9 +8,9 @@ ProductsObject = Products()
 
 version1_blueprints = Blueprint('version1', __name__, url_prefix='/api/v1/products')
 
-@version1_blueprints.route('/', methods=['GET', 'POST'])
+"""@version1_blueprints.route('/', methods=['GET', 'POST'])
 def product():
-    """ Method to create and retrieve product."""
+    # Method to create and retrieve product.
     if request.method == "POST":
         data = request.get_json()
         response = validate_data(data)
@@ -23,9 +23,9 @@ def product():
                 description, quantity, price_per_unit, total_cost)
         return response
     data = ProductsObject.get_products()
-    return data
+    return data"""
 
-@version1_blueprints.route('/<int:product_id>', methods=['GET', 'PUT', 'DELETE'])
+'''@version1_blueprints.route('/<int:product_id>', methods=['GET', 'PUT', 'DELETE'])
 def product_manipulation(product_id, **kwargs):
     """ GET/PUT/DEL product """
     if request.method == 'DELETE':
@@ -48,4 +48,4 @@ def product_manipulation(product_id, **kwargs):
 
     else:
         response = ProductsObject.get_product(product_id)
-        return response
+        return response'''

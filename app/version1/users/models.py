@@ -80,7 +80,7 @@ class User:
                 continue
             return "Login Successful!"
 
-    def edit_user_role(self, user_id):
+    def edit_user_role(self, user_id, role):
         """Admin changes attendant role to admin"""
         if not users:
             return "No registered users"
