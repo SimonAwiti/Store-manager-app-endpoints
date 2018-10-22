@@ -1,4 +1,4 @@
-def validate_data(data):
+def validate_products_data(data):
     """validate product details"""
     try:
         # check if description is empty
@@ -27,7 +27,7 @@ def validate_data(data):
         elif isinstance(data["price_per_unit"], int) is False:
             return "price per unit must be a number"
         else:
-            return "valid"
+            return "valid product"
     except Exception as error:
         return "please provide all the fields, missing " + str(error)
         

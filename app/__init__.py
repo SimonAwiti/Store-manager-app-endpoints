@@ -14,7 +14,7 @@ def create_app(config):
     from app.version1.users.views import version1_blueprints
     app.register_blueprint(version1_blueprints)
 
-    from app.version1.sales.views import version1sales_blueprints
+    from app.version1.users.views import version1sales_blueprints
     app.register_blueprint(version1sales_blueprints)
 
     from app.version1.users.views import version1users_blueprints

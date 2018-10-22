@@ -9,11 +9,6 @@ class SalesRec(object):
         self.salesrec_list = []
         self.notfound = None
 
-    def get_salesrec_by_description(self, description):
-        """ Fetch product by description """
-        salesrec = [salesrec for salesrec in self.salesrec_list if salesrec['description'] == description]
-        return salesrec  
-
     def create_salesrec(self, description, date_sold, quantity_sold, unit_price, bill, attendant):
         """Create sales records"""
         present_salesrec = self.get_salesrec_by_description(description)
@@ -84,3 +79,14 @@ class SalesRec(object):
         if self.notfound is True:
             return jsonify({
                 "message": "No sale record with that id."}), 404
+
+    def get_salesrec_by_attendant(self, attendant):
+        """ Fetch product by description """
+        salesrec = [salesrec for salesrec in self.salesrec_list if salesrec['attendant'] == attendant]
+        return salesrec  
+
+    def get_salesrec_by_description(self, description):
+        """ Fetch product by description """
+        salesrec = [salesrec for salesrec in self.salesrec_list if salesrec['description'] == description]
+        return salesrec  
+
