@@ -1,12 +1,12 @@
 """creating bp routes for products"""
-from flask import Blueprint, request
-from app.version1.products.models import Products
-from app.version1.products.validateproducts import validate_data
+#from flask import Blueprint, request
+#from app.version1.products.models import Products
+##from app.version1.products.validateproducts import validate_data
 
-ProductsObject = Products()
+#ProductsObject = Products()
 
 
-version1_blueprints = Blueprint('version1', __name__, url_prefix='/api/v1/products')
+#version1_blueprints = Blueprint('version1', __name__, url_prefix='/api/v1/products')
 
 """@version1_blueprints.route('/', methods=['GET', 'POST'])
 def product():
