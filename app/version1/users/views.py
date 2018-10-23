@@ -84,11 +84,16 @@ def product_manipulation(product_id, **kwargs):
 
 @version1sales_blueprints.route('/', methods=['GET', 'POST'])
 def salesrec():
+    """ Method to create and retrieve sale record."""
     if not session.get("logged_in"):
         return make_response(jsonify({
-            "Message": "You are not logged in!"
+        "Message": "You are not logged in!"
         }))
-    if session["username"] != "adminstrator" and request.method == 'POST':
+    if request.method == "POST":
+        if session["username"] != "administrator":
+            return make_response(jsonify({
+                "Message": "You are not an admin!"
+                }))
         data = request.get_json()
         response = validate_data(data)
         if response == "valid":
@@ -98,23 +103,12 @@ def salesrec():
             unit_price = data['unit_price']
             bill = unit_price * quantity_sold
             attendant = data['attendant']
+
             response = salesrecObject.create_salesrec(
                 description, date_sold, quantity_sold, unit_price, bill, attendant)
         return response
-    data = salesrecObject.create_salesrec(description, date_sold, quantity_sold, unit_price, bill, attendant)
+    data = salesrecObject.get_salesrecs()
     return data
-
-@version1sales_blueprints.route('/attendant', methods=['GET'])
-def get_one_salesrec(attendant):
-    """Fetch a specif sale record"""
-    if not session.get("logged_in"):
-        return make_response(jsonify({
-            "Message": "You are not logged in!"
-        }))
-    if session["username"] != "administrator":
-        return make_response(jsonify({
-            "Message": salesrecObject.get_salesrec_by_attendant(attendant)
-        }))
 
 @version1users_blueprints.route('/login', methods=['GET', 'POST'])
 def login():
