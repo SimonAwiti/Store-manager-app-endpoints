@@ -20,6 +20,8 @@
 | GET /sales/<saleId>       | Fetch a single sale record       |  /api/v1/sales/<salerecid>    |
 | POST /products            | Create a product                 |  /api/v1/products/            |
 | POST /sales               | Create a sale order              |  /api/v1/sales/               |
+| POST /users               | User log in              |  /api/v1/susers/login               |
+| POST /users               | User registration             |  /api/v1/susers/register               |
   
 ## Extra endpoints include 
 * Deleting both the sales records and products
