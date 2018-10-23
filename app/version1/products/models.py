@@ -7,15 +7,24 @@ class Products(object):
         """ Initialize empty Product list"""
         self.products_list = []
         self.notfound = None
+    def check_product_availability(self, description):
+        """checks if the product is availabe"""
+        product = [product for product in self.products_list if product['description'] == description.rstrip()]
+        if product:
+            return True
+        return False
+
+    def check_min_quantity(self, quantity):
+        """checks if the min quantiry is exeeded"""
+        quantity = [quantity for quantity in self.products_list if quantity['quantity'] < 5]
+        if quantity:
+            return True
+        return False
 
     def get_product_by_description(self, description):
         """ Fetch product by description """
         product = [product for product in self.products_list if product['description'] == description]
         return product   
-
-    def minimum_quantity(self, min_quantity_in_store):
-        min_quantity = self.products['min_quantity_in_store']
-        return min_quantity
 
 
     def create_product(self, description, quantity, price_per_unit, total_cost):
@@ -84,3 +93,7 @@ class Products(object):
         if self.notfound is True:
             return jsonify({
                 "message": "No product with that id."}), 404
+
+    def my_product_list(self, products_list):
+        my_products =products_list
+        return my_products
