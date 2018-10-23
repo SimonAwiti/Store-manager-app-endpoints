@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints.svg?branch=ft-signin-login-endpoints-161335558)](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints)
+[![Build Status](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints.svg?branch=develop)](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints)
 [![Coverage Status](https://coveralls.io/repos/github/SimonAwiti/Store-manager-app-endpoints/badge.svg?branch=ft-signin-login-endpoints-161335558)](https://coveralls.io/github/SimonAwiti/Store-manager-app-endpoints?branch=ft-signin-login-endpoints-161335558)
 
 # Store-manager-app-endpoints
