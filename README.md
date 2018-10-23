@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints.svg?branch=master)](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ae5b234ba51274de5e44/maintainability)](https://codeclimate.com/github/SimonAwiti/Store-manager-app-endpoints/maintainability)
+[![Build Status](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints.svg?branch=ft-signin-login-endpoints-161335558)](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints)
+[![Coverage Status](https://coveralls.io/repos/github/SimonAwiti/Store-manager-app-endpoints/badge.svg?branch=ft-signin-login-endpoints-161335558)](https://coveralls.io/github/SimonAwiti/Store-manager-app-endpoints?branch=ft-signin-login-endpoints-161335558)
 
 # Store-manager-app-endpoints
 
@@ -20,6 +20,8 @@
 | GET /sales/<saleId>       | Fetch a single sale record       |  /api/v1/sales/<salerecid>    |
 | POST /products            | Create a product                 |  /api/v1/products/            |
 | POST /sales               | Create a sale order              |  /api/v1/sales/               |
+| POST /users               | User log in              |  /api/v1/susers/login               |
+| POST /users               | User registration             |  /api/v1/susers/register               |
   
 ## Extra endpoints include 
 * Deleting both the sales records and products
