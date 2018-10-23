@@ -16,13 +16,11 @@ def validate_data(data):
             #return "Date sold is required"
         #elif isinstance(data["date_sold"], int) is True:
             #return "Date must be a string"
-        elif data["quantity_sold"] is False: 
+        elif data["quantity"] is False: 
             return "product quantity required"
-        elif data["quantity_sold"] == "":
+        elif data["quantity"] == "":
             return "product quantity is required"
-        elif data["quantity_sold"] > 5:
-            return "Sale order must be less than available products"
-        elif isinstance(data["quantity_sold"], int) is False:
+        elif isinstance(data["quantity"], int) is False:
             return "Quantity must be a number"
         elif data["unit_price"] is False: 
             return "price pern unit required"

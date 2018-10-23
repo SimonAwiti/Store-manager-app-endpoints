@@ -99,15 +99,21 @@ def salesrec():
         if response == "valid":
             description = data['description']
             date_sold = datetime.datetime.now()
-            quantity_sold = data['quantity_sold']
+            quantity = data['quantity']
             unit_price = data['unit_price']
-            bill = unit_price * quantity_sold
+            bill = unit_price * quantity
             attendant = data['attendant']
 
             response = salesrecObject.create_salesrec(
-                description, date_sold, quantity_sold, unit_price, bill, attendant)
+                description, date_sold, quantity, unit_price, bill, attendant)
         return response
     data = salesrecObject.get_salesrecs()
+    return data
+
+@version1sales_blueprints.route('/<string:attendant>', methods=['GET'])
+def get_salerec_by_attendant(attendant, **kwargs):
+    """getting a sale record by name of attendant"""
+    data = salesrecObject.get_salesrec_by_attendant(attendant)
     return data
 
 @version1users_blueprints.route('/login', methods=['GET', 'POST'])
