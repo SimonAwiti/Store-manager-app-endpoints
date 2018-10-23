@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints.svg?branch=master)](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ae5b234ba51274de5e44/maintainability)](https://codeclimate.com/github/SimonAwiti/Store-manager-app-endpoints/maintainability)
+[![Build Status](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints.svg?branch=ch-feedback-implementation-161310756)](https://travis-ci.org/SimonAwiti/Store-manager-app-endpoints)
+[![Coverage Status](https://coveralls.io/repos/github/SimonAwiti/Store-manager-app-endpoints/badge.svg?branch=ch-feedback-implementation-161310756)](https://coveralls.io/github/SimonAwiti/Store-manager-app-endpoints?branch=ch-feedback-implementation-161310756)
 
 # Store-manager-app-endpoints
 
