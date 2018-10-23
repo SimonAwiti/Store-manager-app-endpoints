@@ -16,6 +16,7 @@ cryptography==2.3.1
 docopt==0.6.2
 enum34==1.1.6
 Flask==1.0.2
+Flask-JWT==0.3.2
 Flask-Testing==0.7.1
 funcsigs==1.0.2
 futures==3.2.0
@@ -32,9 +33,12 @@ pathlib2==2.3.2
 pluggy==0.7.1
 py==1.7.0
 pycparser==2.19
+PyJWT==1.4.2
 pylint==1.9.3
 pyOpenSSL==18.0.0
 pytest==3.8.2
+pytest-cov==2.6.0
+python-dotenv==0.9.1
 requests==2.19.1
 scandir==1.9.0
 singledispatch==3.4.0.3
