@@ -1,3 +1,4 @@
+"""creating tables for the database"""
 users_table = """CREATE TABLE IF NOT EXISTS users
             (
                 user_id serial PRIMARY KEY, 

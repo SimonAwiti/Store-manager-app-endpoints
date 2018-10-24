@@ -53,9 +53,6 @@ def product_manipulation(product_id, **kwargs):
         return make_response(jsonify({
         "Message": "You are not logged in!"
         }))
-    if request.method == 'GET':
-        response = ProductsObject.get_products()
-        return response
     if session["username"] != "administrator":
         return make_response(jsonify({
             "Message": "You are not an admin!"
