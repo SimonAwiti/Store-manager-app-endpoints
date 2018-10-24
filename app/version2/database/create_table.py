@@ -5,7 +5,7 @@ users_table = """CREATE TABLE IF NOT EXISTS users
                 username VARCHAR (50) UNIQUE NOT NULL, 
                 password VARCHAR (50) NOT NULL, 
                 email VARCHAR (355) UNIQUE NOT NULL,
-                role varchar(25) NOT NULL DEFAULT
+                role varchar(25) UNIQUE NOT NULL
         )"""
 
 salesrec_table = """CREATE TABLE IF NOT EXISTS salesrecs
@@ -18,6 +18,7 @@ salesrec_table = """CREATE TABLE IF NOT EXISTS salesrecs
                 bill varchar(25) UNIQUE NOT NULL,
                 attendant varchar(25) UNIQUE NOT NULL
         )"""
+        
 products_table = """CREATE TABLE IF NOT EXISTS products
             (
 	            product_id  serial PRIMARY KEY,

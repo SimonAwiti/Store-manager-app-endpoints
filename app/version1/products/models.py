@@ -9,7 +9,7 @@ class Products(object):
         self.notfound = None
     def check_product_availability(self, description):
         """checks if the product is availabe"""
-        product = [product for product in self.products_list if product['description'] == description.rstrip()]
+        product = [product for product in self.products_list if product['description'] == description]
         if product:
             return True
         return False
@@ -24,7 +24,14 @@ class Products(object):
     def get_product_by_description(self, description):
         """ Fetch product by description """
         product = [product for product in self.products_list if product['description'] == description]
-        return product   
+        if product:
+            return True
+        return False 
+
+    def added_products(self, description):
+        posted_products =self.products_list
+        return posted_products
+  
 
 
     def create_product(self, description, quantity, price_per_unit, total_cost):

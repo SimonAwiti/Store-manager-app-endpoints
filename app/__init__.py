@@ -2,7 +2,7 @@
 import os
 from flask import Flask
 from instance.config import configuration
-from app.version2.database.connectdb import initialize_db
+from app.version2.database.connectdb import initializedb
 
 def create_app(config):
     '''creating app'''
@@ -11,7 +11,7 @@ def create_app(config):
     app.config.from_object(configuration[config])
     app.secret_key = os.urandom(24)
 
-    initialize_db()
+    initializedb()
     
     '''importing and registering the blueprints'''
     from app.version1.users.views import version1_blueprints

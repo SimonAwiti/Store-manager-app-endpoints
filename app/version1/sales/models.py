@@ -10,21 +10,28 @@ class SalesRec(object):
         self.salesrec_list = []
         self.notfound = None
 
+    def check_product_existing(self, description):
+        the_products = Products().added_products(description)
+        product = [product for product in the_products if product['description'] == description]
+        if product:
+            return product
+
     def create_salesrec(self, description, date_sold, quantity, unit_price, bill, attendant):
         """Create sales records"""
         self.salesrec = {}
-        present_salesrec = self.get_salesrec_by_description(description)
-        myproducts = Products().check_product_availability(description)
-        if myproducts is False:
+        #present_salesrec = self.get_salesrec_by_description(description)
+        myproduct = self.check_product_existing(description)
+        if myproduct:
+            print myproduct
             return jsonify({
                 "message": "No such product in store."}), 404 
-        min_quantity = Products().check_min_quantity(quantity)
-        if min_quantity is False:
-            return jsonify({
-                "message": "Sale should not exceed min quantity in store."}), 404 
-        if present_salesrec:
-            return jsonify({
-                "message": "Sale record already exists."}), 404
+        #min_quantity = Products().check_min_quantity(quantity)
+        #if min_quantity is True:
+            #return jsonify({
+                #"message": "Sale should not exceed min quantity in store."}), 404 
+        #if present_salesrec:
+            #return jsonify({
+                #"message": "Sale record already exists."}), 404
         
 
         self.salesrec_id = len(self.salesrec_list)

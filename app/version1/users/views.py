@@ -2,8 +2,7 @@
 from flask import jsonify, Blueprint, request, make_response, session, redirect, url_for
 import datetime
 from app.version1.users.models import User
-from app.version1.products.models import Products
-from app.version1.sales.models import SalesRec
+from app.version1.products.version1model import Products, SalesRec
 from app.version1.products.validateproducts import validate_products_data
 from app.version1.sales.validatesalesrec import validate_data
 
@@ -25,7 +24,7 @@ def product():
         }))
     
     if request.method == 'GET':
-        response = ProductsObject.get_products()
+        response = ProductsObject.get_all_products()
         return response
 
     if session["username"] != "administrator":
@@ -40,10 +39,10 @@ def product():
             quantity = data['quantity']
             price_per_unit = data['price_per_unit']
             total_cost = quantity * price_per_unit
-            response = ProductsObject.create_product(
+            response = ProductsObject.add_product(
                 description, quantity, price_per_unit, total_cost)
         return response
-    data = ProductsObject.get_products()
+    data = ProductsObject.get_all_products()
     return data
 
 @version1_blueprints.route('/<int:product_id>', methods=['GET', 'PUT', 'DELETE'])
@@ -74,9 +73,8 @@ def product_manipulation(product_id, **kwargs):
             price_per_unit,
             total_cost)
         return response
-
     else:
-        response = ProductsObject.get_product(product_id)
+        response = ProductsObject.get_one_product(product_id)
         return response
 
 @version1sales_blueprints.route('/', methods=['GET', 'POST'])

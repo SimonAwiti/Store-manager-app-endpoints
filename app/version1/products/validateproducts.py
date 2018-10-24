@@ -14,12 +14,8 @@ def validate_products_data(data):
             return "product quantity required"
         elif data["quantity"] == "":
             return "product quantity is required"
-        elif data["quantity"] < 5:
-            return "The minimum unit quantity of product must be above 5"
         elif isinstance(data["quantity"], int) is False:
-            return "Quantity must be a number"
-        elif data["quantity"] < 0:
-            return "The minimum unit quantity of product must be a positive number"           
+            return "Quantity must be a number"           
         elif data["price_per_unit"] is False: 
             return "price per unit required"
         elif data["price_per_unit"] == "":
@@ -28,7 +24,8 @@ def validate_products_data(data):
             return "The minimum unit price of product must be above 0"
         elif isinstance(data["price_per_unit"], int) is False:
             return "price per unit must be a number"
-        elif data["quantity"] < 0 or price < 0 or reorder < 0:
+        elif data["quantity"] < 0 or data["price_per_unit"] < 0:
+            return "Input must be a positive number"
         else:
             return "valid product"
     except Exception as error:
