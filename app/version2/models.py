@@ -69,4 +69,15 @@ class Users():
             connection.commit()
             return make_response(jsonify({"message":"user created successfully"}), 201)
 
-            
+    def login(self, username, password):
+        if self.invalid_user(username):
+            connection = connectdb.dbconnection()
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM users WHERE username=%(username)s \
+                and password=%(password)s",{'username':username, 'password':password})
+            user = cursor.fetchone()
+            if user:
+                return jsonify({"message":"log in successful"}), 200
+            return jsonify({"message":"Wrong password"})
+        return jsonify({"message":"No such user name, register first"})
+        

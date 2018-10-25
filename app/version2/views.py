@@ -7,7 +7,7 @@ userObject = Users()
 
 version2users_blueprints = Blueprint('version2users', __name__, url_prefix='/api/v2/users')
 
-@version2users_blueprints.route('admin/login', methods=['POST'])
+@version2users_blueprints.route('admin/register', methods=['POST'])
 def reg_admin():
   """method to place an order"""
   data = request.get_json()
@@ -36,3 +36,15 @@ def signup():
         return userObject.reg_attendant(username, password, confirmpass, userrole)
       return jsonify({"message":"User role can only be administrator"})
     return jsonify({"message":response}), 400
+
+@version2users_blueprints.route('/login', methods=['POST'])
+def login():
+    """ Method to login user """
+    data = request.get_json()
+    response = validate_data_login(data)
+    if response == "valid":
+        username = data['username']
+        password = data['password']
+        response = userObject.login(username, password)
+        return response
+    return jsonify({"message": response}), 401
