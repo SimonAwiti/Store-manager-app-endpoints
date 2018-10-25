@@ -22,14 +22,17 @@ def reg_admin():
     return jsonify({"message":"User role can only be administrator"})
   return jsonify({"message":response}), 400
 
-@version2users_blueprints.route('admin/login', methods=['POST'])
-def login():
-    """Login users into their accounts"""
+@version2users_blueprints.route('/register', methods=['POST'])
+def signup():
+    """Admin can add a new attendant"""
     data = request.get_json()
     response = validate_data_login(data)
+    username = data['username']
+    password = data['password']
+    confirmpass = data['confirmpass']
+    userrole = data['userrole']
     if response == "valid":
-        username = data['username']
-        password = data['password']
-        response = userObject.login_user(username, password)
-        return response
-    return jsonify({"message": response}), 401
+      if userrole.lower() == 'administrator':
+        return userObject.reg_attendant(username, password, confirmpass, userrole)
+      return jsonify({"message":"User role can only be administrator"})
+    return jsonify({"message":response}), 400

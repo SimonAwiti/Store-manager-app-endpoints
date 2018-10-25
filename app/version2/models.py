@@ -8,18 +8,31 @@ from app.version2.database import connectdb
 class Users():
 
     def invalid_user(self, username):
-        """Checks if user exists"""
+        """Checks if user exist in the db"""
         connection = connectdb.dbconnection()
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM users WHERE username=%(username)s",\
          {'username':username})
         rows = cursor.rowcount
-        if rows > 0:
+        if rows > 0: #if the number of such users are in the row
+            return True
+        return False
+
+    def is_administrator(self, username):
+        """looking if the user is administrator"""
+        connection = connectdb.dbconnection()
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM users WHERE username=%(username)s",\
+            {"username":username})
+        response = cursor.fetchone()#looks for the role of admin in the db using the name
+        if response.lower() == 'administrator':
             return True
         return False
 
     def create_admin(self, username, password, confirmpass, userrole):
         """Create admin"""
+        if password != confirmpass:
+            return jsonify({"message" : "Password not matching"}),401
         if self.invalid_user(username):
             return jsonify({"message" : "Username already taken"}),400
         connection = connectdb.dbconnection()
@@ -37,32 +50,23 @@ class Users():
         connection.commit()
         return make_response(jsonify({"message":"Administrator created"}), 201)
 
-    """manupilate users"""
-    def login_user(self, username, password):
-        """sings in a user"""
-        username = request.json.get('username', None)
-        password = request.json.get('password', None)
-        
-        try:
-            get_user = "SELECT username, password, administrator \
-                        FROM users \
-                        WHERE username = '" + username + "' AND password = '" + password + "'"
+    def reg_attendant(self, username, password,confirmpass, userrole):
+        """creating attendant"""
+        if self.is_administrator is False:
+            return jsonify({"message" : "only admin can add a user"}),401
+        if password != confirmpass:
+            return jsonify({"message" : "Password not matching"}),401
+        if self.invalid_user(username):
+            return jsonify({"message":"Username already taken"}),400
+        else:
             connection = connectdb.dbconnection()
             cursor = connection.cursor()
-            cursor.execute(get_user)
-            row = cursor.fetchone()
-            if row is not None:                
-                #access_token = create_access_token(identity={"username": row[0] , "administrator": row[2]})
-                response = jsonify({"message":"User Successfully logged in", "access_token":"access_token"})
-                response.status_code = 200
-                return response
-            response = jsonify({"message" : "No details found"})
-            response.status_code = 401
-            return response
-        except (Exception, psycopg2.DatabaseError) as error:
-            print("DB Error")
-            print(error)
-            response = jsonify({'message':'Database issues at hand'})
-            response.status_code = 400
-            return response
+            cursor.execute("INSERT INTO users (username, password, confirmpass, \
+                 userrole) VALUES (%(username)s,%(password)s,\
+                %(confirmpass)s,%(userrole)s);",\
+                {'username':username,'password':password,'confirmpass':confirmpass,\
+                'userrole':userrole})
+            connection.commit()
+            return make_response(jsonify({"message":"user created successfully"}), 201)
+
             
