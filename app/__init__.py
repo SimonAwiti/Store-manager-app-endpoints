@@ -1,6 +1,7 @@
 '''Creating app initializer'''
 import os
 from flask import Flask
+#from flask_jwt_extended import jwt_manager, jwt_required
 from instance.config import configuration
 from app.version2.database.connectdb import initializedb
 

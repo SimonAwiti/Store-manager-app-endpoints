@@ -1,5 +1,7 @@
+import os
 import psycopg2
 from flask import request, jsonify, make_response
+#from functools import wraps
 #from flask_jwt_extended import create_access_token
 
 from flask import current_app
@@ -52,8 +54,8 @@ class Users():
 
     def reg_attendant(self, username, password,confirmpass, userrole):
         """creating attendant"""
-        if self.is_administrator is False:
-            return jsonify({"message" : "only admin can add a user"}),401
+        #if self.is_administrator is False:
+            #return jsonify({"message" : "only admin can add a user"}),401
         if password != confirmpass:
             return jsonify({"message" : "Password not matching"}),401
         if self.invalid_user(username):
@@ -77,7 +79,6 @@ class Users():
                 and password=%(password)s",{'username':username, 'password':password})
             user = cursor.fetchone()
             if user:
-                return jsonify({"message":"log in successful"}), 200
+                return jsonify({"create token":"to be created"}), 200
             return jsonify({"message":"Wrong password"})
         return jsonify({"message":"No such user name, register first"})
-        
