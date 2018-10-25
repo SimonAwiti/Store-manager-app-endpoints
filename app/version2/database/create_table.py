@@ -3,9 +3,9 @@ users_table = """CREATE TABLE IF NOT EXISTS users
             (
                 user_id serial PRIMARY KEY, 
                 username VARCHAR (50) UNIQUE NOT NULL, 
-                password VARCHAR (50) NOT NULL, 
-                email VARCHAR (355) UNIQUE NOT NULL,
-                role varchar(25) UNIQUE NOT NULL
+                password VARCHAR (50) NOT NULL,
+                confirmpass VARCHAR (50) NOT NULL,
+                userrole VARCHAR (50) NOT NULL
         )"""
 
 salesrec_table = """CREATE TABLE IF NOT EXISTS salesrecs
@@ -32,6 +32,6 @@ products_table = """CREATE TABLE IF NOT EXISTS products
 
 queries = [users_table, salesrec_table, products_table]
 
-drops = ["DROP TABLE users CASCADE",
+droppings = ["DROP TABLE users CASCADE",
         "DROP TABLE products CASCADE",
         "DROP TABLE salesrecs CASCADE"]

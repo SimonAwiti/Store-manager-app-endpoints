@@ -14,6 +14,9 @@ def create_app(config):
     initializedb()
     
     '''importing and registering the blueprints'''
+    from app.version2.views import version2users_blueprints
+    app.register_blueprint(version2users_blueprints)
+
     from app.version1.users.views import version1_blueprints
     app.register_blueprint(version1_blueprints)
 
@@ -22,5 +25,8 @@ def create_app(config):
 
     from app.version1.users.views import version1users_blueprints
     app.register_blueprint(version1users_blueprints)
+    
     return app
     
+
+
