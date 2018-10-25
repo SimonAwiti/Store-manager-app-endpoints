@@ -3,6 +3,6 @@ import os
 # local import
 from app import create_app
 
-config = os.getenv('APP_SETTINGS', 'development')
+config = os.getenv('testing', 'development')
 app = create_app('development')
 

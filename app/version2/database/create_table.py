@@ -16,7 +16,8 @@ salesrec_table = """CREATE TABLE IF NOT EXISTS salesrecs
                 unit_price varchar(25) UNIQUE NOT NULL,
                 quantity varchar(25) UNIQUE NOT NULL,
                 bill varchar(25) UNIQUE NOT NULL,
-                attendant varchar(25) UNIQUE NOT NULL
+                attendant varchar(25) UNIQUE NOT NULL,
+                user_id INT REFERENCES users(user_id) ON DELETE CASCADE
         )"""
         
 products_table = """CREATE TABLE IF NOT EXISTS products
@@ -25,7 +26,12 @@ products_table = """CREATE TABLE IF NOT EXISTS products
 	            description varchar(25) UNIQUE NOT NULL,
                 quantity varchar(25) UNIQUE NOT NULL,
                 price_per_unit varchar(25) UNIQUE NOT NULL,
-                total_cost varchar(25) UNIQUE NOT NULL
+                total_cost varchar(25) UNIQUE NOT NULL,
+                user_id INT REFERENCES users(user_id) ON DELETE CASCADE
         )"""
 
 queries = [users_table, salesrec_table, products_table]
+
+drops = ["DROP TABLE users CASCADE",
+        "DROP TABLE products CASCADE",
+        "DROP TABLE salesrecs CASCADE"]
