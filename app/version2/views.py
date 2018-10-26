@@ -54,17 +54,49 @@ def login():
         return response
     return jsonify({"message": response}), 401
 
-@version2products_blueprints.route('/', methods=['POST'])
+@version2products_blueprints.route('/', methods=['GET', 'POST'])
 def post_product():
     """posting a new product"""
-    data = request.get_json()
-    response = validate_products_data(data)
-    if response == "valid product":
+
+    if request.method == 'GET':
+        response = ProductsObject.get_all_products()
+        return response
+
+    if request.method == 'POST':
+        data = request.get_json()
+        response = validate_products_data(data)
+        if response == "valid product":
+            description = data['description']
+            quantity = data['quantity']
+            price_per_unit = data['price_per_unit']
+            total_cost = quantity * price_per_unit
+            response = ProductsObject.create_product(
+                description, quantity, price_per_unit, total_cost)
+            return response
+    data = ProductsObject.get_all_products()
+    return data
+
+@version2products_blueprints.route('/<int:product_id>', methods=['GET', 'PUT', 'DELETE'])
+def product_manipulation(product_id, **kwargs):
+    """ GET/PUT/DEL product """
+    if request.method == 'DELETE':
+        response = ProductsObject.delete_product(product_id)
+        return response
+
+    elif request.method == 'PUT':
+        data = request.get_json()
         description = data['description']
         quantity = data['quantity']
         price_per_unit = data['price_per_unit']
         total_cost = quantity * price_per_unit
-        response = ProductsObject.create_product(
-                description, quantity, price_per_unit, total_cost)
+        response = ProductsObject.edit_product(
+            product_id,
+            description,
+            quantity,
+            price_per_unit,
+            total_cost)
+        return response
+    else:
+        response = ProductsObject.get_product(product_id)
         return response
         
