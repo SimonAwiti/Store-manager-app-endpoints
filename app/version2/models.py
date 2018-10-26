@@ -107,4 +107,3 @@ class Product():
          {'description' : description, 'quantity':quantity,'price_per_unit': price_per_unit, 'total_cost': total_cost})
         connection.commit()
         return make_response(jsonify({"message":"Product added succesfully"}),201)
-

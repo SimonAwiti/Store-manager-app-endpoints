@@ -53,3 +53,18 @@ def login():
         response = userObject.login(username, password)
         return response
     return jsonify({"message": response}), 401
+
+@version2products_blueprints.route('/', methods=['POST'])
+def post_product():
+    """posting a new product"""
+    data = request.get_json()
+    response = validate_products_data(data)
+    if response == "valid product":
+        description = data['description']
+        quantity = data['quantity']
+        price_per_unit = data['price_per_unit']
+        total_cost = quantity * price_per_unit
+        response = ProductsObject.create_product(
+                description, quantity, price_per_unit, total_cost)
+        return response
+        
