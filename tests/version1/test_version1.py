@@ -3,9 +3,9 @@ import unittest
 import os
 import json
 from app import create_app
-from app.version1.products.models import Products
+from app.version1.products.version1model import Products, SalesRec
 from app.version1.users.models import User, users
-from app.version1.users.views import Products
+
 
 class TestProducts(unittest.TestCase):
 

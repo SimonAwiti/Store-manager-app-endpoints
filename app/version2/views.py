@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, Blueprint, request, make_response
 #from flask_jwt_extended import jwt_required, get_jwt_identity
 import datetime
+#from auth import admin_required
 from app.version2.models import Users, Product
 from app.version1.users.validateusers import validate_data_login
 from app.version1.products.validateproducts import validate_products_data
@@ -27,7 +28,7 @@ def reg_admin():
   return jsonify({"message":response}), 400
 
 @version2users_blueprints.route('/register', methods=['POST'])
-#@jwt_required
+#@admin_required
 def signup():
     """Admin can add a new attendant"""
     data = request.get_json()
@@ -37,9 +38,9 @@ def signup():
     confirmpass = data['confirmpass']
     userrole = data['userrole']
     if response == "valid":
-      if userrole.lower() == 'administrator':
-        return userObject.reg_attendant(username, password, confirmpass, userrole)
-      return jsonify({"message":"User role can only be administrator"})
+        if userrole == 'attendant' or userrole == 'administrator':
+            response = userObject.sign_attendant(username, password, confirmpass, userrole) 
+        return response
     return jsonify({"message":response}), 400
 
 @version2users_blueprints.route('/login', methods=['POST'])
@@ -55,6 +56,7 @@ def login():
     return jsonify({"message": response}), 401
 
 @version2products_blueprints.route('/', methods=['GET', 'POST'])
+#@admin_required
 def post_product():
     """posting a new product"""
 
@@ -77,6 +79,7 @@ def post_product():
     return data
 
 @version2products_blueprints.route('/<int:product_id>', methods=['GET', 'PUT', 'DELETE'])
+#@admin_required
 def product_manipulation(product_id, **kwargs):
     """ GET/PUT/DEL product """
     if request.method == 'DELETE':

@@ -1,7 +1,8 @@
 '''Creating app initializer'''
 import os
 from flask import Flask
-#from flask_jwt_extended import jwt_manager, jwt_required
+#from datetime import timedelta
+#from flask_jwt_extended import JWTManager, jwt_required
 from instance.config import configuration
 from app.version2.database.connectdb import initializedb
 
@@ -11,6 +12,13 @@ def create_app(config):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(configuration[config])
     app.secret_key = os.urandom(24)
+
+    #secret = os.getenv('SECRET')
+    #app.config['JWT_SECRET_KEY']= secret
+    #app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=5)
+    #initialize jwt manager
+    #jwt = JWTManager(app)
+    #app.config.from_object(config[config_name])
 
     initializedb()
     

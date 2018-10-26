@@ -13,10 +13,10 @@ salesrec_table = """CREATE TABLE IF NOT EXISTS salesrecs
 	            salesrec_id  serial PRIMARY KEY,
 	            description varchar(25) UNIQUE NOT NULL,
                 datesold timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                unit_price varchar(25) UNIQUE NOT NULL,
-                quantity varchar(25) UNIQUE NOT NULL,
-                bill varchar(25) UNIQUE NOT NULL,
-                attendant varchar(25) UNIQUE NOT NULL,
+                unit_price varchar(25) NOT NULL,
+                quantity varchar(25) NOT NULL,
+                bill varchar(25) NOT NULL,
+                attendant varchar(25) NOT NULL,
                 user_id INT REFERENCES users(user_id) ON DELETE CASCADE
         )"""
         
@@ -24,9 +24,9 @@ products_table = """CREATE TABLE IF NOT EXISTS products
             (
 	            product_id  serial PRIMARY KEY,
 	            description varchar(25) UNIQUE NOT NULL,
-                quantity varchar(25) UNIQUE NOT NULL,
-                price_per_unit varchar(25) UNIQUE NOT NULL,
-                total_cost varchar(25) UNIQUE NOT NULL,
+                quantity varchar(25) NOT NULL,
+                price_per_unit varchar(25) NOT NULL,
+                total_cost varchar(25) NOT NULL,
                 user_id INT REFERENCES users(user_id) ON DELETE CASCADE
         )"""
 

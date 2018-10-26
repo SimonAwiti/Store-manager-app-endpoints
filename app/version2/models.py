@@ -1,9 +1,10 @@
 import os
 import psycopg2
 from flask import request, jsonify, make_response
-#from functools import wraps
+from auth import admin_required
 #from flask_jwt_extended import create_access_token
 
+objectAdmin = admin_required
 from flask import current_app
 from app.version2.database import connectdb
 
@@ -52,7 +53,7 @@ class Users():
         connection.commit()
         return make_response(jsonify({"message":"Administrator created"}), 201)
 
-    def reg_attendant(self, username, password,confirmpass, userrole):
+    def sign_attendant(self, username, password,confirmpass, userrole):
         """creating attendant"""
         #if self.is_administrator is False:
             #return jsonify({"message" : "only admin can add a user"}),401
@@ -79,7 +80,7 @@ class Users():
                 and password=%(password)s",{'username':username, 'password':password})
             user = cursor.fetchone()
             if user:
-                return jsonify({"create token":"to be created"}), 200
+                return jsonify({"message":"Successful"}), 200
             return jsonify({"message":"Wrong password"})
         return jsonify({"message":"No such user name, register first"})
 
@@ -98,6 +99,12 @@ class Product():
 
     def create_product(self, description, quantity, price_per_unit, total_cost):
         """Create new product"""
+        if description == "" or quantity == "" or price_per_unit == "":
+            return {'message':'Please fill in the missing field'}, 401
+
+        # Checks for values less than 1
+        if quantity < 1 or price_per_unit < 1:
+            return {'message':'The inuts cannot be less than 1'}, 401
         connection = connectdb.dbconnection()
         cursor = connection.cursor()
         if self.product_existing(description):
