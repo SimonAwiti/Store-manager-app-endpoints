@@ -83,4 +83,28 @@ class Users():
             return jsonify({"message":"Wrong password"})
         return jsonify({"message":"No such user name, register first"})
 
+class Product():
+
+    def product_existing(self, description):
+        """check if the product exists already"""
+        connection = connectdb.dbconnection()
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM products WHERE description=%(description)s",\
+        {"description":description})
+        available = cursor.fetchall()
+        if available:
+            return True
+        return False
+
+    def create_product(self, description, quantity, price_per_unit, total_cost):
+        """Create new product"""
+        connection = connectdb.dbconnection()
+        cursor = connection.cursor()
+        if self.product_existing(description):
+            return make_response(jsonify({"Message":"Product has been added already"})), 200
+        cursor.execute("INSERT INTO products (description, quantity, price_per_unit, total_cost)\
+         VALUES (%(description)s, %(quantity)s, %(price_per_unit)s, %(total_cost)s);",\
+         {'description' : description, 'quantity':quantity,'price_per_unit': price_per_unit, 'total_cost': total_cost})
+        connection.commit()
+        return make_response(jsonify({"message":"Product added succesfully"}),201)
 
