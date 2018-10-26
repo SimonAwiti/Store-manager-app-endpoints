@@ -1,12 +1,15 @@
 from flask import Flask, jsonify, Blueprint, request, make_response
 #from flask_jwt_extended import jwt_required, get_jwt_identity
 import datetime
-from app.version2.models import Users
+from app.version2.models import Users, Product
 from app.version1.users.validateusers import validate_data_login
+from app.version1.products.validateproducts import validate_products_data
 
 userObject = Users()
+ProductsObject = Product()
 
 version2users_blueprints = Blueprint('version2users', __name__, url_prefix='/api/v2/users')
+version2products_blueprints = Blueprint('version1', __name__, url_prefix='/api/v2/products')
 
 @version2users_blueprints.route('admin/register', methods=['POST'])
 def reg_admin():
