@@ -107,3 +107,63 @@ class Product():
          {'description' : description, 'quantity':quantity,'price_per_unit': price_per_unit, 'total_cost': total_cost})
         connection.commit()
         return make_response(jsonify({"message":"Product added succesfully"}),201)
+
+    def get_all_products(self):
+        """Gets all products in the list"""
+        connection = connectdb.dbconnection()
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM products")
+        products = cursor.fetchall()
+        all_products = []
+        for product in products:
+            info = {product[0]: {"category_id": product[1],
+                                 "description": product[2],
+                                 "quantity": product[4],
+                                 "price_per_unit": product[5],
+                                 "total_cost": product[5]}}
+            all_products.append(info)
+        return make_response(jsonify({"All products": all_products}), 200)
+
+    def get_product(self, product_id):
+        """Gets a particular product"""
+        connection = connectdb.dbconnection()
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM products WHERE product_id=%s", (product_id,))
+        product = cursor.fetchall()
+        if product != []:
+            product = product[0]
+            info = {product[0]: {"category_id": product[1],
+                                 "description": product[2],
+                                 "quantity": product[4],
+                                 "price_per_unit": product[5],
+                                 "total_cost": product[5]}}
+            return make_response(jsonify({"product": info}), 200)
+        return make_response(jsonify({"message": "No product with that id"}), 404)
+
+    def edit_product(self, product_id, description, quantity, price_per_unit, total_cost):
+        """Editing the product information"""
+        connection = connectdb.dbconnection()
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM products WHERE product_id=%(product_id)s",\
+            {"product_id":product_id})
+        product = cursor.fetchall()
+        if product:
+            cursor.execute("UPDATE  products SET description=%s, quantity=%s, \
+            price_per_unit= %s, total_cost= %s WHERE product_id=%s",\
+            (description, quantity, price_per_unit, total_cost))
+            connection.commit()
+            return make_response(jsonify({'message': 'modified succesfully'}), 200)
+        return jsonify({"message":"No product with that id"})
+
+    def delete_product(self, product_id):
+        connection = connectdb.dbconnection()
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM products WHERE product_id=%(product_id)s",\
+            {"product_id":product_id})
+        product = cursor.fetchall()
+        if product:
+            cursor.execute("DELETE FROM products WHERE product_id=%(product_id)s",\
+                {'product_id':product_id})
+            connection.commit()
+            return jsonify({'message': 'Product deleted '})
+        return jsonify({"message":"No product with that id"}) 
